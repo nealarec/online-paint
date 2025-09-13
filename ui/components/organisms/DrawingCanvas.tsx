@@ -4,10 +4,14 @@ import { Canvas } from "../atoms/Canvas";
 import { DrawingToolbar } from "../molecules/DrawingToolbar";
 import { useDrawing } from "../../hooks/useDrawing";
 import { useDrawingStore } from "../../store/useDrawingStore";
+import { useRoomStore } from "store/useRoomStore";
 
 export const DrawingCanvas: React.FC = () => {
+  const { users } = useRoomStore();
   const { currentDrawing, currentPath } = useDrawingStore();
   const { panResponder } = useDrawing();
+
+  console.log(users);
 
   return (
     <View style={styles.container}>

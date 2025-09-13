@@ -1,8 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { MainTemplate } from '../templates/MainTemplate';
-import { Card } from '../molecules/Card';
-import { Button } from '../atoms/Button';
+import React from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
+import { MainTemplate } from "../templates/MainTemplate";
+import { Card } from "../molecules/Card";
+import { Button } from "../atoms/Button";
+import { useRoomStore } from "../../store/useRoomStore";
 
 interface HomePageProps {
   onProductPress: (id: string) => void;
@@ -15,18 +16,20 @@ export const HomePage: React.FC<HomePageProps> = ({
   onProfilePress,
   username,
 }) => {
+  const { users } = useRoomStore();
+
   const featuredProducts = [
     {
-      id: '1',
-      title: 'Premium Paint Set',
-      description: 'High-quality paints for professional artists',
-      price: '$49.99',
+      id: "1",
+      title: "Premium Paint Set",
+      description: "High-quality paints for professional artists",
+      price: "$49.99",
     },
     {
-      id: '2',
-      title: 'Artist Brushes',
-      description: 'Set of 10 professional paint brushes',
-      price: '$29.99',
+      id: "2",
+      title: "Artist Brushes",
+      description: "Set of 10 professional paint brushes",
+      price: "$29.99",
     },
   ];
 
@@ -73,34 +76,34 @@ export const HomePage: React.FC<HomePageProps> = ({
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 16,
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#1C1C1E',
+    fontWeight: "600",
+    color: "#1C1C1E",
   },
   productsGrid: {
     marginBottom: 24,
   },
   ctaContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 12,
     padding: 16,
-    alignItems: 'center',
-    marginTop: 'auto',
+    alignItems: "center",
+    marginTop: "auto",
     marginBottom: 24,
   },
   ctaText: {
     fontSize: 16,
-    color: '#636366',
+    color: "#636366",
     marginBottom: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
   ctaButton: {
-    width: '100%',
+    width: "100%",
   },
 });

@@ -7,6 +7,7 @@ const workspaceRoot = path.resolve(__dirname, "..");
 const config = getDefaultConfig(projectRoot);
 
 config.watchFolders = [workspaceRoot];
+config.resolver.sourceExts = ["js", "json", "ts", "tsx", "mjs"];
 
 // Esto evita que Metro intente resolver dos veces React o React Native
 config.resolver.nodeModulesPaths = [

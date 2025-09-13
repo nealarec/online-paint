@@ -1,12 +1,7 @@
 import React, { ReactNode } from "react";
-import {
-  View,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  ScrollView,
-} from "react-native";
+import { View, StyleSheet, StatusBar, ScrollView } from "react-native";
 import { Header } from "../organisms/Header";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface MainTemplateProps {
   children: ReactNode;

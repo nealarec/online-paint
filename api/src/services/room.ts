@@ -1,7 +1,8 @@
-import { v4 as uuidv4 } from 'uuid';
-import { Room, User, Path, Point } from '@paint/shared';
+import { v4 as uuidv4 } from "uuid";
+import { Room, User, Path, Point } from "@paint/shared";
 
-export interface RoomWithTimestamps extends Omit<Room, 'createdAt' | 'updatedAt'> {
+export interface RoomWithTimestamps
+  extends Omit<Room, "createdAt" | "updatedAt"> {
   createdAt: Date;
   updatedAt: Date;
 }
@@ -12,8 +13,8 @@ export class RoomService {
   createRoom(user: User, name: string, position?: Point): RoomWithTimestamps {
     const now = new Date();
     const room: RoomWithTimestamps = {
-      id: uuidv4(),
-      name,
+      id: name,
+      name: "Room " + name,
       users: { [user.id]: { ...user, position } },
       paths: [],
       createdAt: now,
@@ -28,7 +29,11 @@ export class RoomService {
     return this.rooms[roomId];
   }
 
-  joinRoom(roomId: string, user: User, position?: Point): RoomWithTimestamps | undefined {
+  joinRoom(
+    roomId: string,
+    user: User,
+    position?: Point
+  ): RoomWithTimestamps | undefined {
     const room = this.rooms[roomId];
     if (!room) return undefined;
 
@@ -52,6 +57,7 @@ export class RoomService {
 
   addPath(roomId: string, path: Path): RoomWithTimestamps | undefined {
     const room = this.rooms[roomId];
+    console.log("Adding path:", path, roomId, this.rooms);
     if (!room) return undefined;
 
     room.paths.push(path);
@@ -59,7 +65,11 @@ export class RoomService {
     return room;
   }
 
-  updateUserPosition(roomId: string, userId: string, position: Point): RoomWithTimestamps | undefined {
+  updateUserPosition(
+    roomId: string,
+    userId: string,
+    position: Point
+  ): RoomWithTimestamps | undefined {
     const room = this.rooms[roomId];
     if (!room || !room.users[userId]) return undefined;
 

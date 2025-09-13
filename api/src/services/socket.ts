@@ -1,33 +1,39 @@
-import { Server, Socket } from "socket.io";
-import { Room, Path, Point } from "@paint/shared";
-import roomService, { RoomWithTimestamps } from "./room";
+import { Server } from "socket.io";
+import type {
+  ServerToClientEvents,
+  ClientToServerEvents,
+  User,
+  RoomWithTimestamps,
+  JoinRoomData,
+} from "@paint/shared";
+import roomService from "./room";
 
-interface SocketData {
-  roomId: string;
-  username: string;
-  position?: Point;
-}
-
-export const socketService = (io: Server) => {
-  io.on("connection", (socket: Socket) => {
+export const socketService = (
+  io: Server<ClientToServerEvents, ServerToClientEvents>
+) => {
+  io.on("connection", (socket) => {
     console.log("User connected:", socket.id);
 
     // Handle joining a room
     socket.on(
       "join_room",
       async (
-        data: SocketData,
+        data: JoinRoomData,
         callback: (room: RoomWithTimestamps | null) => void
       ) => {
         const { roomId, username, position } = data;
-        const user = { id: socket.id, name: username };
+        const user: User = {
+          id: socket.id,
+          name: username,
+          position,
+        } as User; // Cast to include position
 
         try {
           let room = roomService.getRoom(roomId);
 
           // Create room if it doesn't exist
           if (!room) {
-            room = roomService.createRoom(user, `Room ${roomId}`, position);
+            room = roomService.createRoom(user, roomId, position);
           } else {
             // Join existing room
             room = roomService.joinRoom(roomId, user, position);
@@ -49,7 +55,11 @@ export const socketService = (io: Server) => {
             userId: user.id,
             user,
             position,
-            room,
+            room: {
+              ...room,
+              createdAt: room.createdAt.toISOString(),
+              updatedAt: room.updatedAt.toISOString(),
+            },
           });
 
           // Send current room state to the user
@@ -62,34 +72,49 @@ export const socketService = (io: Server) => {
     );
 
     // Handle drawing events
-    socket.on("draw_start", (data: { roomId: string; path: Path }) => {
+    socket.on("draw_start", (data) => {
       const { roomId, path } = data;
-      socket
-        .to(roomId)
-        .emit("draw_start", { userId: socket.data.userId, path });
-    });
-
-    socket.on("draw_update", (data: { roomId: string; path: Path }) => {
-      const { roomId, path } = data;
-      socket
-        .to(roomId)
-        .emit("draw_update", { userId: socket.data.userId, path });
-    });
-
-    socket.on("draw_end", (data: { roomId: string; path: Path }) => {
-      const { roomId, path } = data;
-      const updatedRoom = roomService.addPath(roomId, path);
-      if (updatedRoom) {
-        socket.to(roomId).emit("draw_end", {
+      if (socket.data.userId) {
+        socket.to(roomId).emit("draw_start", {
           userId: socket.data.userId,
           path,
-          room: updatedRoom,
         });
       }
     });
 
+    socket.on("draw_update", (data) => {
+      const { roomId, path } = data;
+      if (socket.data.userId) {
+        socket.to(roomId).emit("draw_update", {
+          userId: socket.data.userId,
+          path,
+        });
+      }
+    });
+
+    socket.on("draw_end", (data) => {
+      const { roomId, path } = data;
+      if (socket.data.userId) {
+        console.log("Drawing ended:", path, roomId);
+        const updatedRoom = roomService.addPath(roomId, path);
+        console.log("Updated room:", updatedRoom, roomId);
+        if (updatedRoom) {
+          console.log("Emitting draw_end");
+          socket.to(roomId).emit("draw_end", {
+            userId: socket.data.userId,
+            path,
+            room: {
+              ...updatedRoom,
+              createdAt: updatedRoom.createdAt.toISOString(),
+              updatedAt: updatedRoom.updatedAt.toISOString(),
+            },
+          });
+        }
+      }
+    });
+
     // Handle cursor movement
-    socket.on("cursor_move", (data: { roomId: string; position: Point }) => {
+    socket.on("cursor_move", (data) => {
       const { roomId, position } = data;
       if (socket.data.userId) {
         roomService.updateUserPosition(roomId, socket.data.userId, position);
@@ -101,10 +126,16 @@ export const socketService = (io: Server) => {
     });
 
     // Handle clearing the canvas
-    socket.on("clear_canvas", (roomId: string) => {
+    socket.on("clear_canvas", (roomId) => {
       const updatedRoom = roomService.clearRoom(roomId);
       if (updatedRoom) {
-        io.to(roomId).emit("canvas_cleared", { room: updatedRoom });
+        io.to(roomId).emit("canvas_cleared", {
+          room: {
+            ...updatedRoom,
+            createdAt: updatedRoom.createdAt.toISOString(),
+            updatedAt: updatedRoom.updatedAt.toISOString(),
+          },
+        });
       }
     });
 

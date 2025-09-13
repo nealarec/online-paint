@@ -13,10 +13,8 @@ const httpServer = createServer(app);
 // Configure CORS for Socket.IO
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.NODE_ENV === 'production' 
-      ? 'https://your-production-url.com' 
-      : 'http://localhost:19006', // Default Expo web port
-    methods: ["GET", "POST"]
+    origin: "*", // Default Expo web port
+    methods: ["GET", "POST"],
   },
   // Enable connection state recovery
   connectionStateRecovery: {

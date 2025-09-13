@@ -26,6 +26,8 @@ export const drawingSchema = z.object({
 export const userSchema = z.object({
   id: z.string(),
   name: z.string(),
+  currentPath: pathSchema.optional(),
+  paths: z.array(pathSchema).optional(),
 });
 
 export const roomUserSchema = userSchema.extend({
