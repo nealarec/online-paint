@@ -1,0 +1,29 @@
+{
+  "name": "online-paint",
+  "version": "1.0.0",
+  "description": "A real-time collaborative whiteboard application",
+  "private": true,
+  "workspaces": [
+    "api",
+    "ui",
+    "shared"
+  ],
+  "scripts": {
+    "start": "concurrently \"cd api && npm run dev\" \"cd ui && npm start\"",
+    "build": "concurrently \"cd shared && npm run build\" \"cd api && npm run build\" \"cd ui && npm run build\"",
+    "test": "concurrently \"cd shared && npm test\" \"cd api && npm test\" \"cd ui && npm test\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nealarec/online-paint.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nealarec/online-paint/issues"
+  },
+  "homepage": "https://github.com/nealarec/online-paint#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

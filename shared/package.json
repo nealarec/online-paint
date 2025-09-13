@@ -10,9 +10,17 @@
     "prepare": "npm run build",
     "test": "jest"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nealarec/online-paint.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nealarec/online-paint/issues"
+  },
+  "homepage": "https://github.com/nealarec/online-paint#readme",
   "devDependencies": {
     "@types/react": "^18.2.0",
     "@types/react-native": "^0.72.0",

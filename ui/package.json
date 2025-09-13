@@ -29,5 +29,15 @@
     "@types/react": "~19.1.0",
     "typescript": "~5.9.2"
   },
-  "private": true
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nealarec/online-paint.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nealarec/online-paint/issues"
+  },
+  "homepage": "https://github.com/nealarec/online-paint#readme"
 }

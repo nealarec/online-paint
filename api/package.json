@@ -11,8 +11,16 @@
     "dev": "concurrently npm:dev:api npm:dev:shared",
     "test": "jest"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nealarec/online-paint.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nealarec/online-paint/issues"
+  },
+  "homepage": "https://github.com/nealarec/online-paint#readme",
   "dependencies": {
     "@paint/shared": "file:../shared",
     "@types/uuid": "^10.0.0",

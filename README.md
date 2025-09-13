@@ -22,8 +22,8 @@ paint/
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd paint
+git clone git@github.com:nealarec/online-paint.git
+cd online-paint
 ```
 
 ### 2. Set up the shared package
