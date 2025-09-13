@@ -61,7 +61,7 @@ export const useDrawingStore = create<DrawingState>((set, get) => ({
         points: [...currentPath.points, point],
       },
     }));
-    
+
     // Get the updated currentPath
     const updatedPath = get().currentPath;
     return updatedPath;
@@ -112,3 +112,6 @@ export const useDrawingStore = create<DrawingState>((set, get) => ({
     });
   },
 }));
+
+export const allPaths = (state: DrawingState) =>
+  (state.currentDrawing?.paths || []).concat(state.currentPath || []);

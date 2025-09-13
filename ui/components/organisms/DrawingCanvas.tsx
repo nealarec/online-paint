@@ -5,18 +5,22 @@ import { DrawingToolbar } from "../molecules/DrawingToolbar";
 import { useDrawing } from "../../hooks/useDrawing";
 import { useDrawingStore } from "../../store/useDrawingStore";
 import { useRoomStore } from "store/useRoomStore";
+import useAllPaths from "hooks/useAllPaths";
 
 export const DrawingCanvas: React.FC = () => {
   const { users } = useRoomStore();
   const { currentDrawing, currentPath } = useDrawingStore();
   const { panResponder } = useDrawing();
 
-  console.log(users);
-
+  const collaborativeDrawing = {
+    name: "Collaborative Drawing",
+    paths: useAllPaths(),
+  };
+  console.log(useAllPaths());
   return (
     <View style={styles.container}>
       <View style={styles.canvasContainer} {...panResponder.panHandlers}>
-        <Canvas drawing={currentDrawing!} currentPath={currentPath} />
+        <Canvas drawing={collaborativeDrawing} currentPath={currentPath} />
       </View>
       <DrawingToolbar />
     </View>

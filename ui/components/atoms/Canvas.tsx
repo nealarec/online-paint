@@ -2,9 +2,6 @@ import React from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 import Svg, { Path as SvgPath, G } from "react-native-svg";
 import { Drawing, Path } from "@paint/shared";
-// import Animated, { useAnimatedProps, useSharedValue } from 'react-native-reanimated';
-
-// const AnimatedPath = Animated.createAnimatedComponent(SvgPath);
 
 interface CanvasProps {
   drawing: Drawing;

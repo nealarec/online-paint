@@ -12,6 +12,7 @@ import type {
   DrawEndEvent,
   Path,
 } from "@paint/shared";
+import { memo } from "react";
 
 interface RoomState {
   // Room state
@@ -180,3 +181,8 @@ export const useRoomStore = create<RoomState>((set, get) => ({
     }));
   },
 }));
+
+export const getAllPaths = (state: RoomState) =>
+  state.users
+    .flatMap((user) => user.paths || [])
+    .concat(state.users.flatMap((user) => user.currentPath || [])) || [];
