@@ -1,10 +1,14 @@
-// Shared types and interfaces
-export interface ApiResponse<T> {
-  data: T;
-  status: number;
-  message?: string;
-}
+import {
+  drawingSchema,
+  pathSchema,
+  pointSchema,
+  roomSchema,
+  userSchema,
+} from "../schemas";
+import { z } from "zod";
 
-export type Nullable<T> = T | null;
-
-export type Optional<T> = T | undefined;
+export type Drawing = z.infer<typeof drawingSchema>;
+export type Path = z.infer<typeof pathSchema>;
+export type Point = z.infer<typeof pointSchema>;
+export type Room = z.infer<typeof roomSchema>;
+export type User = z.infer<typeof userSchema>;
