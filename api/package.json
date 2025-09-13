@@ -1,0 +1,32 @@
+{
+  "name": "@paint/api",
+  "version": "1.0.0",
+  "description": "Paint App API",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev:api": "ts-node-dev --respawn --watch ../shared/dist --transpile-only src/server.ts",
+    "dev:shared": "cd ../shared && npm run dev",
+    "dev": "concurrently npm:dev:api npm:dev:shared",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@paint/shared": "file:../shared",
+    "concurrently": "^9.2.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^5.1.0",
+    "socket.io": "^4.7.5",
+    "tsx": "^4.20.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^20.11.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.0"
+  }
+}
