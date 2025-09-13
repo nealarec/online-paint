@@ -2,6 +2,10 @@
 
 A real-time collaborative whiteboard application built with React Native (web) and Node.js with Socket.IO.
 
+## 🎥 Demo Video
+
+[![Watch the demo](https://i9.ytimg.com/vi_webp/VRHWtugIFzk/mq3.webp?sqp=CKzCl8YG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGE8gUyhlMA8=&rs=AOn4CLAVRNYkqsiCfX0leEMbFySUwy0nNA)](https://youtu.be/VRHWtugIFzk)
+
 ## Prerequisites
 
 - Node.js (v16 or later)
@@ -39,11 +43,13 @@ npm run build
 ### 3. Set up the API server
 
 1. Navigate to the API directory:
+
    ```bash
    cd ../api
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
@@ -57,11 +63,13 @@ npm run build
 ### 4. Set up the UI
 
 1. Open a new terminal and navigate to the UI directory:
+
    ```bash
    cd ../ui
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
@@ -75,12 +83,14 @@ npm run build
 ## Available Scripts
 
 ### API
+
 - `npm run dev` - Start the development server with hot-reload
 - `npm run build` - Build for production
 - `npm start` - Start the production server
 - `npm test` - Run tests
 
 ### UI
+
 - `npm start` - Start the development server
 - `npm run web` - Run the web version
 - `npm run build` - Build for production
@@ -89,6 +99,7 @@ npm run build
 ## Environment Variables
 
 ### API
+
 Create a `.env` file in the `api` directory with the following variables:
 
 ```env
@@ -97,6 +108,7 @@ NODE_ENV=development
 ```
 
 ### UI
+
 Create a `.env` file in the `ui` directory with the following variables:
 
 ```env
@@ -106,12 +118,14 @@ REACT_APP_API_URL=http://localhost:3000
 ## Development Workflow
 
 1. Start the API server first:
+
    ```bash
    cd api
    npm run dev
    ```
 
 2. Then start the UI in a separate terminal:
+
    ```bash
    cd ui
    npm start
@@ -124,18 +138,21 @@ REACT_APP_API_URL=http://localhost:3000
 To test the collaborative features on multiple devices connected to the same local network:
 
 1. Find your computer's local IP address:
+
    - **Mac/Linux**: Run `ifconfig | grep "inet " | grep -v 127.0.0.1` in the terminal
    - **Windows**: Run `ipconfig` in Command Prompt and look for "IPv4 Address"
 
 2. Update the UI environment variables:
+
    - Edit the `.env` file in the `ui` directory
    - Set `REACT_APP_API_URL` to use your computer's local IP:
      ```env
      REACT_APP_API_URL=http://YOUR_LOCAL_IP:3001
      ```
-   Replace `YOUR_LOCAL_IP` with your actual local IP address (e.g., `192.168.1.100`)
+     Replace `YOUR_LOCAL_IP` with your actual local IP address (e.g., `192.168.1.100`)
 
 3. Restart the UI server:
+
    ```bash
    cd ui
    npm start
@@ -147,6 +164,7 @@ To test the collaborative features on multiple devices connected to the same loc
    - Multiple users can now join the same room and collaborate in real-time
 
 ### Important Notes:
+
 - Ensure your computer's firewall allows incoming connections on ports 3000 (API) and 8081 (UI)
 - All devices must be connected to the same local network
 - For best performance, use a stable Wi-Fi connection
