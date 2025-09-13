@@ -1,10 +1,13 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, TouchableOpacityProps } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, TouchableOpacityProps, ViewStyle, TextStyle, StyleProp } from 'react-native';
 
 interface ButtonProps extends TouchableOpacityProps {
-  title: string;
+  title?: string;
   variant?: 'primary' | 'secondary' | 'outline';
   size?: 'sm' | 'md' | 'lg';
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -13,6 +16,8 @@ export const Button: React.FC<ButtonProps> = ({
   size = 'md',
   style,
   disabled,
+  children,
+  textStyle,
   ...props
 }) => {
   const buttonStyle = [
@@ -23,20 +28,21 @@ export const Button: React.FC<ButtonProps> = ({
     style,
   ];
 
-  const textStyle = [
+  const textStyles = [
     styles.text,
     styles[`${variant}Text`],
     styles[`${size}Text`],
+    textStyle,
   ];
 
   return (
     <TouchableOpacity
-      style={buttonStyle}
+      style={[buttonStyle, disabled && styles.disabled, style]}
       disabled={disabled}
       activeOpacity={0.7}
       {...props}
     >
-      <Text style={textStyle}>{title}</Text>
+      {children || <Text style={[textStyles, disabled && styles.disabledText]}>{title}</Text>}
     </TouchableOpacity>
   );
 };
@@ -62,6 +68,9 @@ const styles = StyleSheet.create({
   },
   disabled: {
     opacity: 0.5,
+  },
+  disabledText: {
+    opacity: 0.7,
   },
   text: {
     fontWeight: '600',
