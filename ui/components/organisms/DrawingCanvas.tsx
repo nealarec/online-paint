@@ -16,7 +16,6 @@ export const DrawingCanvas: React.FC = () => {
     name: "Collaborative Drawing",
     paths: useAllPaths(),
   };
-  console.log(useAllPaths());
   return (
     <View style={styles.container}>
       <View style={styles.canvasContainer} {...panResponder.panHandlers}>

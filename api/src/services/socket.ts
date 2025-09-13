@@ -95,11 +95,8 @@ export const socketService = (
     socket.on("draw_end", (data) => {
       const { roomId, path } = data;
       if (socket.data.userId) {
-        console.log("Drawing ended:", path, roomId);
         const updatedRoom = roomService.addPath(roomId, path);
-        console.log("Updated room:", updatedRoom, roomId);
         if (updatedRoom) {
-          console.log("Emitting draw_end");
           socket.to(roomId).emit("draw_end", {
             userId: socket.data.userId,
             path,
@@ -146,7 +143,6 @@ export const socketService = (
         roomService.leaveRoom(roomId, userId);
         socket.to(roomId).emit("user_left", { userId });
       }
-      console.log("User disconnected:", socket.id);
     });
   });
 

@@ -57,7 +57,6 @@ export class RoomService {
 
   addPath(roomId: string, path: Path): RoomWithTimestamps | undefined {
     const room = this.rooms[roomId];
-    console.log("Adding path:", path, roomId, this.rooms);
     if (!room) return undefined;
 
     room.paths.push(path);
