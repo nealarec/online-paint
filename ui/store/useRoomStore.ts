@@ -28,6 +28,7 @@ interface RoomState {
   sendDrawUpdate: (path: any) => void;
   sendDrawEnd: (path: any) => void;
   updateCursorPosition: (position: Point) => void;
+  clearCanvas: () => void;
 
   // Socket event handlers
   handleUserJoined: (data: UserJoinedEvent) => void;
@@ -36,6 +37,7 @@ interface RoomState {
   handleDrawUpdate: (data: DrawUpdateEvent) => void;
   handleDrawEnd: (data: DrawEndEvent) => void;
   handleCursorMove: (data: CursorMoveEvent) => void;
+  handleClearCanvas: () => void;
 }
 
 export const useRoomStore = create<RoomState>((set, get) => ({
@@ -56,6 +58,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
     socketService.onDrawUpdate(get().handleDrawUpdate);
     socketService.onDrawEnd(get().handleDrawEnd);
     socketService.onCursorMove(get().handleCursorMove);
+    socketService.onCanvasCleared(get().handleClearCanvas);
 
     socketService.joinRoom(roomId, username, undefined, (room) => {
       const socketId = socketService.getSocketId();
@@ -118,6 +121,13 @@ export const useRoomStore = create<RoomState>((set, get) => ({
     }
   },
 
+  clearCanvas: () => {
+    const { roomId } = get();
+    if (roomId) {
+      socketService.clearCanvas(roomId);
+    }
+  },
+
   // Socket event handlers
   handleUserJoined: (data: UserJoinedEvent) => {
     set((state) => ({
@@ -172,12 +182,23 @@ export const useRoomStore = create<RoomState>((set, get) => ({
           const updatedUser = {
             ...user,
             currentPath: undefined,
-            paths: [...(user?.paths || []), ev.path],
+            paths: [...(user.paths || []), ev.path],
           };
           return updatedUser;
         }
         return user;
       }),
+    }));
+  },
+
+  handleClearCanvas: () => {
+    set((state) => ({
+      ...state,
+      users: state.users.map((user) => ({
+        ...user,
+        paths: [],
+        currentPath: undefined,
+      })),
     }));
   },
 }));

@@ -179,15 +179,15 @@ class SocketService {
     }
   }
 
-  public onCursorMove(callback: (data: CursorMoveEvent) => void) {
-    if (this.socket) {
-      this.socket.on("user_moved", callback);
-    }
-  }
-
   public onCanvasCleared(callback: (data: CanvasClearedEvent) => void) {
     if (this.socket) {
       this.socket.on("canvas_cleared", callback);
+    }
+  }
+
+  public onCursorMove(callback: (data: CursorMoveEvent) => void) {
+    if (this.socket) {
+      this.socket.on("user_moved", callback);
     }
   }
 
