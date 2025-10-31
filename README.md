@@ -4,7 +4,7 @@ A real-time collaborative whiteboard application built with React Native (web) a
 
 ## 🎥 Demo Video
 
-[![Watch the demo](https://i9.ytimg.com/vi_webp/VRHWtugIFzk/mq3.webp?sqp=CKzCl8YG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGE8gUyhlMA8=&rs=AOn4CLAVRNYkqsiCfX0leEMbFySUwy0nNA)](https://youtu.be/VRHWtugIFzk)
+[![Watch the demo](https://img.youtube.com/vi/VRHWtugIFzk/0.jpg)](https://youtu.be/VRHWtugIFzk)
 
 ## Prerequisites
 
